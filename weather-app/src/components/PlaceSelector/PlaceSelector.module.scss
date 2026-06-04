@@ -1,0 +1,32 @@
+.dashboard_header {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    &__info {
+        h3 {
+            padding-top: 10px;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--h3-color);
+        }
+    }
+
+    &__logo {
+        font-size: 32px;
+        font-weight: 600;
+        letter-spacing: 0%;
+    }
+    &__search {
+        border: 1px solid var(--bg-search);
+        background: var(--bg-search);
+        width: 100%;     
+        max-width: 500px;
+        padding: 10px 10px;
+        border-radius: 30px;
+        box-sizing: border-box;
+    }
+
+}
