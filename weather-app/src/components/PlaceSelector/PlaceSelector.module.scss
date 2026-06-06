@@ -1,9 +1,9 @@
+@use '../../assets/styles/mixin' as *;
+
 .dashboard_header {
     padding: 40px 0;
-    display: flex;
+    @include flex-hybrid (space-between, center);
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
 
     &__info {
         h3 {
@@ -24,9 +24,23 @@
         background: var(--bg-search);
         width: 100%;     
         max-width: 500px;
-        padding: 10px 10px;
+        padding: 10px 20px;
         border-radius: 30px;
         box-sizing: border-box;
+        @include flex-hybrid(space-between, center);
+        flex-direction: row;
+        input {
+            flex-grow: 1;
+            outline: none;
+            border: none;
+        }
+        button {
+            cursor: pointer;  
+            transition: transform 0.2s ease;
+            &:hover {
+                transform: scale(1.2);
+              }
+        }
     }
 
 }

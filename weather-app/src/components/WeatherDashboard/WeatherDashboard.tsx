@@ -1,4 +1,5 @@
 import PlaceSelector from "../PlaceSelector/PlaceSelector";
+import Scale from "../Scale/Scale";
 import s from './WeatherDashboard.module.scss'
 
 const WeatherDashboard = () => {
@@ -43,6 +44,7 @@ const WeatherDashboard = () => {
                     </div>
                 </div>
             </div>
+            <Scale/>
         </section>
      );
 }

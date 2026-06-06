@@ -10,7 +10,8 @@ const PlaceSelector = () => {
                         <h3>Saturday  27, September 2024 </h3>
                     </div>
                     <div className={s.dashboard_header__search}>
-                        <input type='text' placeholder='Search city'/>
+                        <input type='search' placeholder='Search city' maxLength={70}/>
+                        <button><img src='/magnifier.svg' alt='magnifier'/></button>
                     </div>
                 </div>
             </div>

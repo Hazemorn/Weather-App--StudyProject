@@ -1,0 +1,11 @@
+@use '../../assets/styles/mixin' as *;
+.scale {
+    
+    &__item {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: var(--bg-search);
+        @include flex-hybrid (center, center);
+    }
+}

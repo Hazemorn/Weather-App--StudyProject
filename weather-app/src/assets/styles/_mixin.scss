@@ -1,0 +1,10 @@
+@mixin flex-hybrid ($jc, $ai) {
+    display: flex;
+    justify-content: $jc;
+    align-items: $ai;
+}
+
+@mixin flex-direction( $direction) {
+    display: flex;
+    flex-direction: $direction;
+}
