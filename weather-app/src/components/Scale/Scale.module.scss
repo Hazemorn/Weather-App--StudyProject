@@ -1,11 +1,37 @@
 @use '../../assets/styles/mixin' as *;
 .scale {
-    
+    padding: 60px 0 40px;
+    @include flex-direction(row);
+    justify-content: end;
+    gap: 16px; 
     &__item {
+        cursor: pointer;
         width: 35px;
         height: 35px;
         border-radius: 50%;
         background-color: var(--bg-search);
-        @include flex-hybrid (center, center);
+       
     }
+    &__radio {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+        
+        &:checked + .scale__text {
+            background-color: var(--accent);        
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+    }
+     &__text {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        @include flex-hybrid (center, center);    
+   }
 }
