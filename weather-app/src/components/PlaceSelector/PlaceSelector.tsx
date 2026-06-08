@@ -2,7 +2,7 @@ import s from './PlaceSelector.module.scss'
 
 const PlaceSelector = () => {
     return ( 
-        <header >
+        <header>
             <div className='container'>
                 <div className={s.dashboard_header}>
                     <div className={s.dashboard_header__info}>
