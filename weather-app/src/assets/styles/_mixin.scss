@@ -4,7 +4,7 @@
     align-items: $ai;
 }
 
-@mixin flex-direction( $direction) {
+@mixin flex-dir( $direction) {
     display: flex;
     flex-direction: $direction;
 }

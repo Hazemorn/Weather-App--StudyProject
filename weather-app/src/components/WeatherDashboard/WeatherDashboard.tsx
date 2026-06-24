@@ -5,17 +5,26 @@ import { getCity, getWeather} from "../../hooks/getWeather";
 import type { Weather } from "../../hooks/getWeather";
 import { useEffect, useState } from "react";
 
+import crescentImg from "/weatherIcons/crescent.svg";
+import maxTempImg from "/dashboardIcons/maxTemp.svg";
+import minTempImg from "/dashboardIcons/minTemp.svg";
+import windImg from "/dashboardIcons/wind.svg";
+import humidityImg from "/dashboardIcons/humidity.svg";
+
 const WeatherDashboard = () => {
 
     const [weather, setWeather] = useState<Weather | null>(null);
+    const [searchQuery, setSearchQuery] = useState<string>('London');
+    const [unit, setUnit] = useState<string>(() => {return localStorage.getItem('weather-unit') || 'metric';}); 
 
     useEffect(() => {
         const loadWeatherData = async () => {
-            const cityData = await getCity();
+            const cityData = await getCity(searchQuery);
             if (cityData) {
                 const { lat, lon } = cityData;
-                const weatherData = await getWeather(lat, lon); 
-                
+                console.log(unit);
+                const weatherData = await getWeather(lat, lon, unit); 
+                console.log(weatherData)
                 if (weatherData) {
                     setWeather(weatherData); 
                 }
@@ -23,20 +32,34 @@ const WeatherDashboard = () => {
         };
 
         loadWeatherData();
-    }, []);
+        localStorage.setItem('weather-unit', unit); 
+    }, [unit, searchQuery]);
 
     if (!weather) {
-        return <div className="container">Loading...</div>;
+        return (
+            <>
+             <div className="container">
+                <PlaceSelector setSearch={setSearchQuery}/>
+                    <div className={s.dashboard}>
+                        <div className={s.dashboard__gen_info}>
+                            <div className={s.dashboard__loading}>Loading...</div>
+                        </div>
+                    </div>
+                    <Scale currentUnit={unit} onUnitChange={setUnit}/>
+                </div>
+            </>
+        )
+       
     }
 
     return ( 
         <section>
-            <PlaceSelector/>
             <div className="container">
+                <PlaceSelector setSearch={setSearchQuery}/>
                 <div className={s.dashboard}>
                     <div className={s.dashboard__gen_info}>
                         <div className={s.dashboard__location}>
-                            <h1>London</h1>
+                            <h1>{weather.name || searchQuery}</h1>
                             <p>{weather.sys.country}</p>
                         </div>
                         <div className={s.dashboard__temperature}>
@@ -46,32 +69,32 @@ const WeatherDashboard = () => {
                     </div>
                     <div className={s.dashboard__additional_info}>
                         <div className={s.dashboard__info__sky}>
-                            <img src="/weatherIcons/crescent.svg" alt="weatherIcon"/>
+                            <img src={crescentImg} alt="weatherIcon"/>
                             <p>{weather.weather.description}</p>
                         </div>
                         <div className={s.dashboard__info__items}>
                             <div className={s.dashboard__info__item}>
-                                <img src="/dashboardIcons/maxTemp.svg" alt="arrow-up"/>
+                                <img src={maxTempImg} alt="arrow-up"/>
                                 <p>{Math.round(weather.main.temp_max)}°</p>
                             </div>
                             <div className={s.dashboard__info__item}>
-                                <img src="/dashboardIcons/minTemp.svg" alt="arrow-down"/>
+                                <img src={minTempImg} alt="arrow-down"/>
                                 <p>{Math.round(weather.main.temp_min)}°</p>
                             </div>
                             <div className={s.dashboard__info__item}>
-                                <img src="/dashboardIcons/wind.svg" alt="wind"/>
-                                <p>{weather.wind.speed} m/sec</p>
+                                <img src={windImg} alt="wind"/>
+                                <p>{weather.wind.speed} {localStorage.getItem('weather-unit') === 'metric' ? 'm/sec' : 'ft/sec'}</p> 
                             </div>
                             <div className={s.dashboard__info__item}>
-                                <img src="/dashboardIcons/humidity.svg" alt="droplet"/>
+                                <img src={humidityImg} alt="droplet"/>
                                 <p>{weather.main.humidity}°</p>
                             </div>
                         </div>
                        
                     </div>
                 </div>
+            <Scale currentUnit={unit} onUnitChange={setUnit}/>
             </div>
-            <Scale/>
         </section>
      );
 }

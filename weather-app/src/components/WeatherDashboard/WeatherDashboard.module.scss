@@ -10,7 +10,7 @@
     @include flex-hybrid (space-between, center);
     padding: 40px 120px;
     &__gen_info {
-        @include flex-direction (column);
+        @include flex-dir (column);
         justify-content: space-between;
         height: 280px;
     }
@@ -31,17 +31,17 @@
     }
 
     &__additional_info {
-        @include flex-direction (column);
+        @include flex-dir (column);
         gap: 23px;
     }
 
     &__info__item {
-        @include flex-direction (row);
+        @include flex-dir (row);
         gap: 16px;
     }
 
     &__info__sky {
-        @include flex-direction (column);
+        @include flex-dir (column);
         align-items: end;
         img {
             width: 100px;
@@ -50,5 +50,10 @@
         p {
             line-height: 40px;
         }
+    }
+
+    &__loading {
+        @include flex-hybrid(center, center);
+        font-size: 40px;
     }
 }

@@ -16,6 +16,7 @@ interface WeatherMain {
 }
 
 export interface Weather {
+    name: string;
     main: WeatherMain;
     wind: {
         speed: number;
@@ -28,8 +29,8 @@ export interface Weather {
     };
 }
 
-const getCity = async (): Promise<CityData | undefined> =>  {
-    const city =`http://api.openweathermap.org/geo/1.0/direct?q={London}&appid=${apiKey}`;
+const getCity = async (inputCity:string): Promise<CityData | undefined> =>  {
+    const city =`http://api.openweathermap.org/geo/1.0/direct?q=${inputCity}&appid=${apiKey}`;
     try {
         const response = await fetch(city);
         if (!response.ok) {
@@ -55,8 +56,8 @@ const getCity = async (): Promise<CityData | undefined> =>  {
 }
 
 
-const getWeather = async (lat: number, lon: number): Promise< Weather | undefined > => {
-    const query = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+const getWeather = async (lat: number, lon: number, unit: string): Promise< Weather | undefined > => {
+    const query = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
 
     try {
         const response = await fetch(query);
@@ -65,6 +66,7 @@ const getWeather = async (lat: number, lon: number): Promise< Weather | undefine
         }
         const weatherData: Weather = await response.json();
         const weatherInfo: Weather = {
+            name: weatherData.name,
             main: {
                 temp: weatherData.main.temp,
                 feels_like: weatherData.main.feels_like,

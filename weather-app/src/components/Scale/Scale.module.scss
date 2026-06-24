@@ -1,7 +1,7 @@
 @use '../../assets/styles/mixin' as *;
 .scale {
     padding: 60px 0 40px;
-    @include flex-direction(row);
+    @include flex-dir(row);
     justify-content: end;
     gap: 16px; 
     &__item {
