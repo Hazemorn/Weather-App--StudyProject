@@ -4,9 +4,13 @@ import './assets/styles/index.scss'
 import './assets/styles/_reset.scss'
 import './assets/styles/_vars.scss'
 import App from './App.tsx'
+import { Provider } from 'react-redux';
+import { store } from './store/store.ts'; 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <Provider store ={store}>
+      <App />
+    </Provider>
   </StrictMode>,
 )

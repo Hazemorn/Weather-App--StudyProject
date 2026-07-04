@@ -1,5 +1,5 @@
 import s from "./PlaceSelector.module.scss";
-import getDate from "../../hooks/getDate";
+import getDate from "../../services/getDate";
 import { useState } from "react";
 import type { SubmitEvent } from "react";
 

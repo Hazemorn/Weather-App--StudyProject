@@ -1,8 +1,8 @@
 import PlaceSelector from "../PlaceSelector/PlaceSelector";
 import Scale from "../Scale/Scale";
 import s from './WeatherDashboard.module.scss'
-import { getCity, getWeather} from "../../hooks/getWeather";
-import type { Weather } from "../../hooks/getWeather";
+import { getCity, getWeather} from "../../services/getWeather";
+import type { Weather } from "../../services/getWeather";
 import { useEffect, useState } from "react";
 
 import crescentImg from "/weatherIcons/crescent.svg";
