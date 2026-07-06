@@ -1,8 +1,6 @@
 import PlaceSelector from "../PlaceSelector/PlaceSelector";
 import Scale from "../Scale/Scale";
-import s from './WeatherDashboard.module.scss'
-import { getCity, getWeather} from "../../services/getWeather";
-import type { Weather } from "../../services/getWeather";
+import s from './WeatherDashboard.module.scss';
 import { useEffect, useState } from "react";
 
 import crescentImg from "/weatherIcons/crescent.svg";
@@ -10,30 +8,24 @@ import maxTempImg from "/dashboardIcons/maxTemp.svg";
 import minTempImg from "/dashboardIcons/minTemp.svg";
 import windImg from "/dashboardIcons/wind.svg";
 import humidityImg from "/dashboardIcons/humidity.svg";
+import { useCustomDispatch, useCustomSelector } from "../../hooks/store";
+import { fetchCurrentWeather } from "../../store/thunks/fetchCurrentWeather";
+
 
 const WeatherDashboard = () => {
-
-    const [weather, setWeather] = useState<Weather | null>(null);
-    const [searchQuery, setSearchQuery] = useState<string>('London');
+    const [searchQuery, setSearchQuery] = useState<string>('Minsk');
     const [unit, setUnit] = useState<string>(() => {return localStorage.getItem('weather-unit') || 'metric';}); 
+    const dispatch =  useCustomDispatch();
+    const {weather} = useCustomSelector((state) => state.currentWeatherSliceReducer);
+    
+    useEffect(() => {
+        dispatch(fetchCurrentWeather(searchQuery, unit));
+    }, [dispatch, searchQuery, unit]);
 
     useEffect(() => {
-        const loadWeatherData = async () => {
-            const cityData = await getCity(searchQuery);
-            if (cityData) {
-                const { lat, lon } = cityData;
-                console.log(unit);
-                const weatherData = await getWeather(lat, lon, unit); 
-                console.log(weatherData)
-                if (weatherData) {
-                    setWeather(weatherData); 
-                }
-            }
-        };
-
-        loadWeatherData();
-        localStorage.setItem('weather-unit', unit); 
-    }, [unit, searchQuery]);
+        localStorage.setItem('weather-unit', unit);
+    }, [unit]);
+    
 
     if (!weather) {
         return (

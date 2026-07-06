@@ -1,36 +1,21 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getCity, getWeather} from  "../../services/getWeather.ts";
-import type {Weather} from "../../services/getWeather.ts";
+import type { AppDispatch } from "../store";
+import WeatherService from "../../services/getWeather";
+import { currentWeatherSlice } from "../slices/currentWeatherSlicer";
+import type { Weather, WeatherResponse } from "../types/types";
 
-interface FetchWeatherArgs {
-    cityName: string;
-    unit: 'metric' | 'imperial'; 
-  }
-
-
-  export const fetchWeatherByCity = createAsyncThunk<
-        Weather,               
-        FetchWeatherArgs,      
-        { rejectValue: string } 
-    >(
-  "weather/fetchByCity",
-  async ({ cityName, unit }, thunkAPI) => {
-    try {
-      const cityInfo = await getCity(cityName);
-
-      if (!cityInfo) {
-        return thunkAPI.rejectWithValue("City not found or request failed");
-      }
-
-      const weatherInfo = await getWeather(cityInfo.lat, cityInfo.lon, unit);
-
-      if (!weatherInfo) {
-        return thunkAPI.rejectWithValue("Failed to load weather data");
-      }
-      return weatherInfo;
-
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message || "An unexpected error occurred");
+export const fetchCurrentWeather = (payload: string, unit: string) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(currentWeatherSlice.actions.fetchCurrentWeather())
+    const weatherRes = await WeatherService.getCurrentWeather(payload, unit); 
+    if (Number(weatherRes.cod) === 200) {
+      dispatch(currentWeatherSlice.actions.fetchCurrentWeatherSuccess(weatherRes as Weather))
+    } else {
+      dispatch(currentWeatherSlice.actions.fetchCurrentWeatherError(weatherRes as WeatherResponse))
     }
+  } catch (error) {
+    console.log(error);
   }
-);
+  
+}
+
+

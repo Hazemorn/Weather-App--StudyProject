@@ -1,25 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { Weather } from "../../services/getWeather";
-import { fetchWeatherByCity } from "../thunks/fetchCurrentWeather"; 
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { Weather } from "../types/types";
+
+//import { fetchCurrentWeather } from "../thunks/fetchCurrentWeather";
 
 
 type WeatherResponse = {
-    status: number;
+    cod: number;
     message: string;
 }
 
 type CurrentWeatherState = {
-    weather: Weather | null; 
+    weather: Weather | null;
     isLoading: boolean;
     response: WeatherResponse;
 }
 
 const initialState: CurrentWeatherState = {
-    weather: null,
+    weather: {
+        name: 'name',
+        main: {
+            temp: 0,
+            feels_like: 0,
+            temp_max: 0,
+            temp_min: 0,
+            humidity: 0,
+        },
+        wind: {
+            speed: 0,
+        },
+        weather: {
+            description: 'description',
+        },
+        sys: {
+            country: 'country',
+        },
+        cod: 0,
+        message: '',
+    },
     isLoading: false,
     response: {
-        status: 0,
+        cod: 0,
         message: '',
     },
 };
@@ -28,34 +48,26 @@ export const currentWeatherSlice = createSlice({
     name: 'current_weather',
     initialState,
     reducers: {
-        clearWeatherData(state) {
+        fetchCurrentWeather(state) {
+            state.isLoading = true;
+        },
+        fetchCurrentWeatherSuccess(state, action: PayloadAction<Weather>) {
+            state.isLoading = false; 
+            state.weather = action.payload;
+            state.response = {
+                cod: action.payload.cod,
+                message: action.payload.message,
+            };
+        },
+        fetchCurrentWeatherError(state, action: PayloadAction<WeatherResponse>) {
+            state.isLoading = false; 
             state.weather = null;
-            state.response = { status: 0, message: '' };
-        }
+            state.response = {
+                cod: action.payload.cod,
+                message: action.payload.message,
+            };
+        },
     },
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchWeatherByCity.pending, (state) => {
-                state.isLoading = true;
-                state.response = { status: 0, message: '' }; 
-            })
-            
-            .addCase(fetchWeatherByCity.fulfilled, (state, action: PayloadAction<Weather>) => {
-                state.isLoading = false;
-                state.weather = action.payload; 
-                state.response = { status: 200, message: 'Success' };
-            })
-            .addCase(fetchWeatherByCity.rejected, (state, action) => {
-                state.isLoading = false;
-                state.weather = null;
-                state.response = {
-                    status: 404,
-                    message: action.payload as string || 'Failed to fetch weather',
-                };
-            });
-    }
 });
-
-export const { clearWeatherData } = currentWeatherSlice.actions;
 
 export default currentWeatherSlice.reducer;
