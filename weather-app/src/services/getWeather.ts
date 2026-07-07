@@ -16,7 +16,6 @@ export class WeatherService {
                     message: weatherResponseError.message,
                 } 
                 return weatherError;
-                // throw new Error(`Error HTTP: ${response.status}`)
             }
             
             const weatherResponse: Weather = await response.json();

@@ -13,10 +13,10 @@ import { fetchCurrentWeather } from "../../store/thunks/fetchCurrentWeather";
 
 
 const WeatherDashboard = () => {
-    const [searchQuery, setSearchQuery] = useState<string>('Minsk');
+    const [searchQuery, setSearchQuery] = useState<string>('London');
     const [unit, setUnit] = useState<string>(() => {return localStorage.getItem('weather-unit') || 'metric';}); 
     const dispatch =  useCustomDispatch();
-    const {weather} = useCustomSelector((state) => state.currentWeatherSliceReducer);
+    const {weather, isLoading, response} = useCustomSelector((state) => state.currentWeatherSliceReducer);
     
     useEffect(() => {
         dispatch(fetchCurrentWeather(searchQuery, unit));
@@ -27,11 +27,11 @@ const WeatherDashboard = () => {
     }, [unit]);
     
 
-    if (!weather) {
+    if (isLoading) {
         return (
             <>
              <div className="container">
-                <PlaceSelector setSearch={setSearchQuery}/>
+                <PlaceSelector setSearch={setSearchQuery} response={response}/>
                     <div className={s.dashboard}>
                         <div className={s.dashboard__gen_info}>
                             <div className={s.dashboard__loading}>Loading...</div>
@@ -41,14 +41,13 @@ const WeatherDashboard = () => {
                 </div>
             </>
         )
-       
     }
 
     return ( 
         <section>
             <div className="container">
-                <PlaceSelector setSearch={setSearchQuery}/>
-                <div className={s.dashboard}>
+                <PlaceSelector setSearch={setSearchQuery} response={response}/>
+                {weather &&(<div className={s.dashboard}>
                     <div className={s.dashboard__gen_info}>
                         <div className={s.dashboard__location}>
                             <h1>{weather.name || searchQuery}</h1>
@@ -84,7 +83,7 @@ const WeatherDashboard = () => {
                         </div>
                        
                     </div>
-                </div>
+                </div>)}
             <Scale currentUnit={unit} onUnitChange={setUnit}/>
             </div>
         </section>

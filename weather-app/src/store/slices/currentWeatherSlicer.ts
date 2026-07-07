@@ -1,9 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Weather } from "../types/types";
 
-//import { fetchCurrentWeather } from "../thunks/fetchCurrentWeather";
-
-
 type WeatherResponse = {
     cod: number;
     message: string;
@@ -61,7 +58,7 @@ export const currentWeatherSlice = createSlice({
         },
         fetchCurrentWeatherError(state, action: PayloadAction<WeatherResponse>) {
             state.isLoading = false; 
-            state.weather = null;
+            // state.weather = null;
             state.response = {
                 cod: action.payload.cod,
                 message: action.payload.message,
