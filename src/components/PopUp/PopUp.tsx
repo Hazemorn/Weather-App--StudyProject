@@ -1,4 +1,4 @@
-import s from './PopUp.module.scss'
+//import s from './PopUp.module.scss'
 
 const PopUp = () => {
     return ( <>

@@ -3,7 +3,7 @@ import getDate from "../../services/getDate";
 import { useState } from "react";
 import type { SubmitEvent } from "react";
 import type { WeatherResponse } from "../../store/types/types";
-
+import magnifierImg from '../../assets/img/magnifier.svg';
 
 
 interface SearchProps {
@@ -51,7 +51,7 @@ const PlaceSelector: React.FC<SearchProps> = ( {setSearch, response}) => {
               maxLength={70}    
             />
             <button type="submit">
-              <img src="/magnifier.svg" alt="magnifier" />
+              <img src={magnifierImg} alt="magnifier" />
             </button>
           </form>
         </div>
