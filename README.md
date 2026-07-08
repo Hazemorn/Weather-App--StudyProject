@@ -29,4 +29,4 @@ https://hazemorn.github.io/Weather-App--StudyProject/
 ## ⏳ In Progress (Roadmap)
 - [ ] Add dynamic card backgrounds based on weather conditions
 - [ ] Add a section displaying the weather forecast for multiple days
->>>>>>> f4f24e91b623a9b9413b5efe0c333f869a1ac70a
+
