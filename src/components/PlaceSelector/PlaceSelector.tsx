@@ -2,18 +2,10 @@ import s from "./PlaceSelector.module.scss";
 import getDate from "../../services/getDate";
 import { useContext, useState } from "react";
 import type { SubmitEvent } from "react";
-//import type { WeatherResponse } from "../../store/types/types";
 import magnifierImg from '../../assets/img/magnifier.svg';
 import { WeatherContext } from "../../context/weatherContext";
 
 
-// interface SearchProps {
-//   setSearch: React.Dispatch<React.SetStateAction<string>>;
-//   response: WeatherResponse;
-// }
-
-
-//const PlaceSelector: React.FC<SearchProps> = ( {setSearch, response}) => {
 const PlaceSelector = () => { 
   const {setSearchQuery, response} = useContext(WeatherContext);  
 
@@ -30,7 +22,7 @@ const PlaceSelector = () => {
       setError("Please, enter the name of the city");
       return;
     }
-    setSearchQuery(trimmedValue);//setSearch
+    setSearchQuery(trimmedValue);
     setError("Search city");
   };
 

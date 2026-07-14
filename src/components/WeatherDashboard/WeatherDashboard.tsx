@@ -2,7 +2,6 @@ import {useContext} from 'react';
 import PlaceSelector from "../PlaceSelector/PlaceSelector";
 import Scale from "../Scale/Scale";
 import s from './WeatherDashboard.module.scss';
-//import { useEffect, useState } from "react";
 
 import crescentImg from "/weatherIcons/crescent.svg";
 import maxTempImg from "/dashboardIcons/maxTemp.svg";
@@ -11,30 +10,15 @@ import windImg from "/dashboardIcons/wind.svg";
 import humidityImg from "/dashboardIcons/humidity.svg";
 
 import {WeatherContext} from '../../context/weatherContext'
-//import { useCustomDispatch, useCustomSelector } from "../../hooks/store";
-//import { fetchCurrentWeather } from "../../store/thunks/fetchCurrentWeather";
 
 
 const WeatherDashboard = () => {
     const {weather, isLoading, searchQuery} = useContext(WeatherContext);
-    // const [searchQuery, setSearchQuery] = useState<string>('London');
-    // const [unit, setUnit] = useState<string>(() => {return localStorage.getItem('weather-unit') || 'metric';}); 
-    // const dispatch =  useCustomDispatch();
-    // const {weather, isLoading, response} = useCustomSelector((state) => state.currentWeatherSliceReducer);
-    
-    // useEffect(() => {
-    //     dispatch(fetchCurrentWeather(searchQuery, unit));
-    // }, [dispatch, searchQuery, unit]);
-
-    // useEffect(() => {
-    //     localStorage.setItem('weather-unit', unit);
-    // }, [unit]);
     
 
     if (isLoading) {
         return (
              <div className="container">
-                {/* <PlaceSelector setSearch={setSearchQuery} response={response}/> */}
                     <PlaceSelector/>
                     <div className={s.dashboard}>
                         <div className={s.dashboard__gen_info}>
@@ -42,7 +26,6 @@ const WeatherDashboard = () => {
                         </div>
                     </div>
                     <Scale/>
-                    {/* <Scale currentUnit={unit} onUnitChange={setUnit}/> */}
                 </div>
         )
     }
@@ -51,7 +34,6 @@ const WeatherDashboard = () => {
         <section>
             <div className="container">
                 <PlaceSelector/>
-                {/* <PlaceSelector setSearch={setSearchQuery} response={response}/> */}
                 {weather &&(<div className={s.dashboard}>
                     <div className={s.dashboard__gen_info}>
                         <div className={s.dashboard__location}>
@@ -89,7 +71,6 @@ const WeatherDashboard = () => {
                        
                     </div>
                 </div>)}
-            {/* <Scale currentUnit={unit} onUnitChange={setUnit}/> */}
             <Scale/>
             </div>
         </section>

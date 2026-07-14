@@ -3,7 +3,6 @@ import type { ReactNode} from "react";
 import { useCustomDispatch, useCustomSelector } from "../hooks/store";
 import { fetchCurrentWeather } from '../store/thunks/fetchCurrentWeather';
 import type {Weather} from '../store/types/types';
-//import {initialState} from '../store/slices/currentWeatherSlicer'
 import type {WeatherResponse} from '../store/slices/currentWeatherSlicer'
 
 interface WeatherContextType {
