@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Weather } from "../types/types";
 
-type WeatherResponse = {
+export type WeatherResponse = {
     cod: number;
     message: string;
 }
@@ -12,7 +12,7 @@ type CurrentWeatherState = {
     response: WeatherResponse;
 }
 
-const initialState: CurrentWeatherState = {
+export const initialState: CurrentWeatherState = {
     weather: {
         name: 'name',
         main: {

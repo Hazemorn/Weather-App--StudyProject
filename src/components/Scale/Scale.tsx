@@ -1,14 +1,18 @@
 // import {useState} from 'react';
+import { useContext } from 'react';
 import s from './Scale.module.scss';
+import { WeatherContext } from '../../context/weatherContext';
 
-interface ScaleProps {
-    currentUnit: string;
-    onUnitChange: (value: string) => void;
-}
+// interface ScaleProps {
+//     currentUnit: string;
+//     onUnitChange: (value: string) => void;
+// }
 
-const Scale: React.FC<ScaleProps> = ( {currentUnit, onUnitChange }) => {
+//const Scale: React.FC<ScaleProps> = ( {currentUnit, onUnitChange }) => {
 
-    const handleUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {onUnitChange(e.target.value);};
+const Scale= () => {
+    const {unit, setUnit} = useContext(WeatherContext);
+    const handleUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {setUnit(e.target.value);};//onUnitChange
 
     return ( 
             <div className={s.scale}>
@@ -17,7 +21,7 @@ const Scale: React.FC<ScaleProps> = ( {currentUnit, onUnitChange }) => {
                         type="radio" 
                         name="weather-unit" 
                         value="metric" 
-                        checked={currentUnit === 'metric'} 
+                        checked={unit === 'metric'} //currentUnit
                         onChange={handleUnitChange}
                         className={s.scale__radio}
                     />
@@ -28,7 +32,7 @@ const Scale: React.FC<ScaleProps> = ( {currentUnit, onUnitChange }) => {
                         type="radio" 
                         name="weather-unit" 
                         value="imperial" 
-                        checked={currentUnit === 'imperial'} 
+                        checked={unit === 'imperial'}  //currentUnit
                         onChange={handleUnitChange}
                         className={s.scale__radio}
                     />
