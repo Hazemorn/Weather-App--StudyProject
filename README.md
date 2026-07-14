@@ -18,7 +18,7 @@ https://hazemorn.github.io/Weather-App--StudyProject/
 
 ## 🛠️ Tech Stack
 - React Vite
-- Redux
+- Redux Toolkit
 - SASS, BEM
 - Fetch API (OpenWeather)
 - TypeScript
